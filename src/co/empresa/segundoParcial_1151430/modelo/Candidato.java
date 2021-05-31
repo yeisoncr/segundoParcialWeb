@@ -15,15 +15,15 @@ import lombok.NoArgsConstructor;
 
 public class Candidato implements Serializable {
 	private Integer id;
-	private String documento;
 	private String nombre;
 	private String apellido;
+	private String documento;
 	private Integer numero;
 	
 	public Candidato(String documento,String nombre,String apellido,Integer numero) {
-		this.documento = documento;
 		this.nombre = nombre;
 		this.apellido = apellido;
+		this.documento = documento;
 		this.numero= numero;
 	}
 	
