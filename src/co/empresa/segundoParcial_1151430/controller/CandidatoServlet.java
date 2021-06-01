@@ -13,16 +13,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-import co.empresa.segundoParcial_1151430.dao.CandidatoDAO;
+import co.empresa.segundoParcial_1151430.dao.CandidatoDAOPosgreSQL;
 import co.empresa.segundoParcial_1151430.modelo.Candidato;
 
 
-@WebServlet("/CandidatoServlet")
+@WebServlet("/")
 public class CandidatoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 
-	private CandidatoDAO candidatoDAO;
+	private CandidatoDAOPosgreSQL candidatoDAO;
 	
     public CandidatoServlet() {
         super();
@@ -32,6 +32,11 @@ public class CandidatoServlet extends HttpServlet {
 
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
+		this.candidatoDAO = new CandidatoDAOPosgreSQL();
+		
+			
+			
+		
 	}
 
 
@@ -141,7 +146,7 @@ public class CandidatoServlet extends HttpServlet {
 			throws SQLException, IOException, ServletException {
 		
 		List <Candidato> listCandidatos = candidatoDAO.selectAll();
-		request.setAttribute("listCandidato", listCandidatos);
+		request.setAttribute("listCandidatos", listCandidatos);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("FormCandidatos.jsp");
 		dispatcher.forward(request, response);

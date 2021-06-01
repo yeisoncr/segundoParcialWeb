@@ -1,129 +1,21 @@
 package co.empresa.segundoParcial_1151430.dao;
 
-
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import co.empresa.segundoParcial_1151430.modelo.Candidato;
-import co.empresa.segundoParcial_1151430.util.Conexion;
-
-public class CandidatoDAO {
-	
-	private Conexion conexion; 
-	private static final String INSERT_USUARIO_SQL = "INSERT INTO usuario (nombre, email, pais) VALUES (?,?,?);";
-	private static final String DELETE_USUARIO_SQL = "DELETE FROM usuario WHERE id = ? ;";
-	private static final String UPDATE_USUARIO_SQL = "UPDATE  usuario SET  nombre = ?, email = ?, pais = ? WHERE id = ?;";
-	private static final String SELECT_USUARIO_BY_ID = "SELECT * FROM usuario WHERE id = ?;";
-	private static final String SELECT_ALL_USUARIOS = "SELECT * FROM usuario;"; 
-	
-	public CandidatoDAO() {
-		this.conexion = Conexion.getConexion();
-		
-	}
-	
-
-	public void insert(Candidato candidato) throws SQLException {
-		try {
-			PreparedStatement preparedStatement = (PreparedStatement) conexion.setPreparedStatement(INSERT_USUARIO_SQL);
-			preparedStatement.setString(1, candidato.getNombre());
-			preparedStatement.setString(2, candidato.getApellido());
-			preparedStatement.setString(3, candidato.getDocumento());
-			preparedStatement.setInt(4, candidato.getNumero());
-
-			conexion.execute();			
-		} catch (SQLException e) {
-			// TODO: handle exception
-		}
-		
-	}
-	
-	public void delete(int id) throws SQLException {
-		try {
-			PreparedStatement preparedStatement = (PreparedStatement) conexion.setPreparedStatement(DELETE_USUARIO_SQL);
-			preparedStatement.setInt(1, id);
-
-			conexion.execute();
-		} catch (SQLException e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
-		
-	}
-
-	public void update(Candidato candidato )  throws SQLException {
-		try {
-			PreparedStatement preparedStatement = (PreparedStatement) conexion.setPreparedStatement(UPDATE_USUARIO_SQL);
-			preparedStatement.setString(1, candidato.getNombre());
-			preparedStatement.setString(2, candidato.getApellido());
-			preparedStatement.setString(3, candidato.getDocumento());
-			preparedStatement.setInt(4, candidato.getNumero());
-			preparedStatement.setInt(5, candidato.getId());
-			
-			conexion.execute();			
-		} catch (SQLException e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
-		
-	}
-	
-	
-	public List<Candidato> selectAll() {
-		List<Candidato> candidato = new ArrayList<>();
-		try {
-			conexion.setPreparedStatement(SELECT_ALL_USUARIOS);
-			
-			ResultSet rs = conexion.query();
-			
-			while(rs.next()) {
-				int id = rs.getInt("id");
-				String nombre = rs.getString("nombre");
-				String apellido = rs.getNString("apellido");
-				String documento = rs.getString("documento");
-				int numero = rs.getInt("numero");
-				
-				candidato.add(new Candidato(id,nombre,apellido,documento,numero));
-				
-			}
-			
-			
-		} catch (SQLException e) {
-			// TODO: handle exception
-		}
-		return candidato;
-		
-	}
-	
-	public Candidato select(int id) {
-		Candidato candidato = null;
-		try {
-			PreparedStatement preparedStatement = (PreparedStatement) conexion.setPreparedStatement(SELECT_USUARIO_BY_ID);
-			preparedStatement.setInt(1, id);
-			
-			ResultSet rs = conexion.query();
-			
-			while(rs.next()) {
 
 
-				
-				String nombre = rs.getString("nombre");
-				String apellido = rs.getNString("apellido");
-				String documento = rs.getString("documento");
-				int numero = rs.getInt("numero");
-				
-				candidato = new Candidato(id,nombre,apellido,documento,numero);
-			}
-			
-			
-		} catch (SQLException e) {
-			// TODO: handle exception
-		}
-		return candidato;
-		
-	}
-	
+
+public interface CandidatoDAO {
+	public void insert(Candidato candidato) throws SQLException;
+
+	public void delete(int id) throws SQLException;
+
+	public void update(Candidato candidato) throws SQLException;
+
+	public List<Candidato> selectAll();
+
+	public Candidato  select (int id);
 
 }

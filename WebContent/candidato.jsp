@@ -18,6 +18,7 @@
 
                     <ul class="navbar-nav">
                         <li><a href="<%=request.getContextPath()%>/list" class="nav-link">Candidatos</a></li>
+                        <li><a href="<%=request.getContextPath()%>/list" class="nav-link">Eleccion</a></li>
                     </ul>
                 </nav>
             </header>
